@@ -67,10 +67,8 @@ public class PlayerController : MonoBehaviour
             transform.position = new Vector3(transform.position.x * -1, transform.position.y, 0);
         }
 
-        if (transform.position.y <= -verticalScreenSize || transform.position.y > verticalScreenSize)
-        {
-            transform.position = new Vector3(transform.position.x, transform.position.y * -1, 0);
-        }
+        // Restrict player to bottom half of screen only
+        transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, -verticalScreenSize, 0), 0);
 
     }
 }
