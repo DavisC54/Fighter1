@@ -44,8 +44,7 @@ public class GameManager : MonoBehaviour
 
     void CreateEnemyTwo()
     {
-        float side = Random.Range(0, 2) == 0 ? -1 : 1;
-        float xPos = side * horizontalScreenSize;
+        float xPos = Random.Range(-horizontalScreenSize, horizontalScreenSize);
         float yPos = Random.Range(0, verticalScreenSize);
         Instantiate(enemyTwoPrefab, new Vector3(xPos, yPos, 0), Quaternion.Euler(180, 0, 0));
     }
