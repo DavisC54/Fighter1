@@ -7,34 +7,28 @@ public class EnemyTwo : MonoBehaviour
     public GameObject explosionPrefab;
     private GameManager gameManager;
 
-    private float speed;
-    private float frequency;
-    private float magnitude;
-    private Vector3 startPos;
-    private float timeElapsed;
+    private float moveSpeed;
+    private float waveSpeed;
+    private float waveSize;
+    private float timer;
 
     void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        speed = 3f;
-        frequency = 2f;
-        magnitude = 1.5f;
-        startPos = transform.position;
-        timeElapsed = 0f;
+        moveSpeed = 2.5f;
+        waveSpeed = 3f;
+        waveSize = 2f;
+        timer = 0f;
     }
 
     void Update()
     {
-        timeElapsed += Time.deltaTime;
+        timer += Time.deltaTime;
+        float xMove = Mathf.Sin(timer * waveSpeed) * waveSize * Time.deltaTime;
+        float yMove = -moveSpeed * Time.deltaTime;
+        transform.Translate(new Vector3(xMove, yMove, 0));
 
-        // Move down and in a wave pattern
-        float yMovement = -speed * Time.deltaTime;
-        float xMovement = Mathf.Sin(timeElapsed * frequency) * magnitude * Time.deltaTime;
-
-        transform.Translate(new Vector3(xMovement, yMovement, 0));
-
-        // Destroy if off screen
-        if (transform.position.y < -gameManager.verticalScreenSize * 1.5f)
+        if (transform.position.y < -7f)
         {
             Destroy(this.gameObject);
         }
